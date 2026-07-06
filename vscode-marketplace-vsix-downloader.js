@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VSCode Marketplace VSIX Downloader
 // @namespace    https://github.com/vsc-exten/vsc-downloader
-// @version      2.1.0
+// @version      2026.7.6
 // @description  在 VSCode Marketplace 的 Version History 标签页中，将每个版本号变为可点击的下载链接，点击下载 .vsix 安装包并自动命名为 插件ID-版本号.vsix。
 // @author       chenshoufeng
 // @match        https://marketplace.visualstudio.com/items?itemName=*
@@ -45,7 +45,7 @@
 
     linkEl.setAttribute(DOWNLOADING_FLAG, '1');
     linkEl.style.opacity = '0.55';
-    linkEl.textContent = `${origText} ⏳`;
+    linkEl.textContent = `${origText} downloading...`;
 
     function restore() {
       linkEl.removeAttribute(DOWNLOADING_FLAG);
@@ -98,7 +98,7 @@
     a.style.color = '#0078d4';
     a.style.textDecoration = 'none';
     a.style.cursor = 'pointer';
-    a.title = `点击下载 ${info.publisher}.${info.extension}-${version}.vsix`;
+    a.title = `${info.publisher}.${info.extension}-${version}.vsix`;
     a.addEventListener('mouseenter', () => { a.style.textDecoration = 'underline'; });
     a.addEventListener('mouseleave', () => { a.style.textDecoration = 'none'; });
     // 拦截点击：用 Blob 下载以指定文件名，失败降级为新标签打开
